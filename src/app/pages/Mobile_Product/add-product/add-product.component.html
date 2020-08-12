@@ -1,0 +1,46 @@
+<app-popup
+[message]="AddProductMessage"
+*ngIf="AddProductMessage"
+(close)="OnHandlePopup()"
+></app-popup>
+
+<div class="card">
+  <div class="container">
+    <h2 class="text-center text-divider">Add Product</h2>
+    <hr style="color: grey;">
+
+    <div class="container">
+      <form #addProducts="ngForm" (ngSubmit)="onSubmit(addProducts)">
+        <label for="CompanyName">Company</label>
+        <select id="company" ngModel name="Company" #Company="ngModel" required>
+          <option *ngFor="let comp of company" [value]="comp.Id" selected>{{comp && comp.Name}}</option>
+        </select>
+        <span class="help-block" *ngIf="Company.invalid && Company.touched" style="color: red;">Please Enter Valid Company Name..</span>
+
+
+       <label for="Category">Category</label>
+       <select id="category" ngModel name="Category" #Category="ngModel" required>
+        <option *ngFor="let cat of category" [value]="cat.Id" >{{cat && cat.Name}}</option>
+      </select>
+      <span class="help-block" *ngIf="Category.invalid && Category.touched" style="color: red;">Please Enter Valid Category Name..</span>
+
+      <label for="ModelName">Model Name</label>
+      <input type="text" ngModel name="ModelName" #ModelName="ngModel" required>
+      <span class="help-block" *ngIf="ModelName.invalid && ModelName.touched" style="color: red;">Please Enter Valid Model Name..</span>
+
+      <label for="ModelName">Stock</label>
+      <input type="text" ngModel name="stock" #stock="ngModel" required>
+      <span class="help-block" *ngIf="stock.invalid && stock.touched" style="color: red;">Please Enter Valid stock..</span>
+
+      <label for="Country">Specification</label>
+      <textarea id="spec" name="Specification" ngModel  placeholder="Specification.." style="height:200px" #Specification="ngModel" required></textarea>
+        <span class="help-block" *ngIf="Specification.invalid && Specification.touched" style="color: red;">Please Enter Valid Specification</span>
+
+
+<br>
+
+        <input type="submit" value="Submit" (click)="actionButton($event)" [disabled]="!addProducts.valid">
+      </form>
+    </div>
+ </div>
+</div>

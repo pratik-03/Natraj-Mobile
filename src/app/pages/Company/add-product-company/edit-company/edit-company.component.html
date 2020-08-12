@@ -1,0 +1,72 @@
+<app-popup
+[message]="updateCompanyMessage"
+*ngIf="updateCompanyMessage"
+(close)="onHandleMessagePopup()"
+></app-popup>
+
+<!-- <div class="container">
+  <h2 class="text-center">Update Product</h2>
+  <form [formGroup]="CompanyEditForm" (ngSubmit)="onUpdate()">
+    <div>
+    <div class="row">
+      <div class="col-25">
+        <label for="company"  class="float-right font-weight-bold">Company Name</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="CompanyName" formControlName="CompanyName" [(ngModel)]="companyData && companyData.CompanyName">
+        <span *ngIf="!CompanyEditForm.get('CompanyName').valid && CompanyEditForm.get('CompanyName').touched"  style="color: red;">
+          Please valid company Name
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="category" class="float-right font-weight-bold">Country</label>
+      </div>
+      <div class="col-75">
+       <input type="text"  id="Country" formControlName="Country"  [(ngModel)]="companyData && companyData.Country">
+       <span *ngIf="!CompanyEditForm.get('Country').valid && CompanyEditForm.get('Country').touched" style="color: red;">
+        Please valid Country Name
+      </span>
+      </div>
+    </div>
+    <input type="hidden" formControlName="CompanyId" [(ngModel)]="companyData && companyData.CompanyId" >
+    <div class="row">
+      <input type="submit"  value="Submit" (click)="onActionButton($event)" [disabled]="!CompanyEditForm.valid">
+    </div>
+  </div>
+  </form>
+</div> -->
+
+
+
+<div class="card">
+  <div class="container">
+    <h2 class="text-center text-divider">Edit Company</h2>
+    <hr style="color: grey;">
+
+    <div class="container">
+      <form [formGroup]="CompanyEditForm" (ngSubmit)="onUpdate()">
+        <label for="CompanyName">Company Name</label>
+
+        <input type="text" id="Name" formControlName="Name" [(ngModel)]="companyData && companyData.Name">
+        <span *ngIf="!CompanyEditForm.get('Name').valid && CompanyEditForm.get('Name').touched"  style="color: red;">
+          Please valid company Name
+        </span>
+
+
+       <label for="Country">Country</label>
+
+       <input type="text"  id="Country" formControlName="Country"  [(ngModel)]="companyData && companyData.Country">
+       <span *ngIf="!CompanyEditForm.get('Country').valid && CompanyEditForm.get('Country').touched" style="color: red;">
+        Please valid Country Name
+      </span>
+
+      <input type="hidden" formControlName="Id" [(ngModel)]="companyData && companyData.Id" >
+<br>
+
+      <input type="submit"  value="Submit" (click)="onActionButton($event)" [disabled]="!CompanyEditForm.valid">
+      </form>
+    </div>
+ </div>
+</div>

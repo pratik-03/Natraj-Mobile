@@ -1,0 +1,59 @@
+
+
+<app-popup
+[message]="AddPurchaseMessage"
+*ngIf="AddPurchaseMessage"
+(close)="OnHandlePopup()"
+></app-popup>
+
+
+
+
+
+
+
+<button class="btn btn-primary" routerLink="/vendor">Add Vendor</button>
+<div class="card">
+  <div class="container">
+    <h2 class="text-center text-divider">Purchase Order</h2>
+    <hr style="color: grey;">
+
+    <div class="container">
+      <form #createPurchase="ngForm" (ngSubmit)="onSubmit(createPurchase)">
+
+        <label for="Date">Date</label>
+      <input type="Date" ngModel name="Date" #Date="ngModel" [(ngModel)]="today" required>
+      <span class="help-block" *ngIf="Date.invalid && Date.touched" style="color: red;">Please Enter Valid Date..</span>
+
+        <label for="Vendor">Vendor</label>
+        <select ngModel name="VendorId" #Vendor="ngModel" required>
+          <option *ngFor="let vend of vendor" [value]="vend && vend.Id" selected>{{vend && vend.Name | shorten}}</option>
+        </select>
+        <span class="help-block" *ngIf="Vendor.invalid && Vendor.touched" style="color: red;">Please Enter Valid Vendor..</span>
+
+        <!-- hiiden type for Product ID -->
+       <input type="hidden" ngModel name="ProductId" [(ngModel)]="productId">
+
+
+       <label for="Quantity">Quantity</label>
+       <input type="number" ngModel name="Quantity" #Quantity="ngModel" required>
+      <span class="help-block" *ngIf="Quantity.invalid && Quantity.touched" style="color: red;">Please Enter Valid Quantity..</span>
+
+      <label for="Price">Price</label>
+      <input type="number" ngModel name="Price" #Price="ngModel" required>
+      <span class="help-block" *ngIf="Price.invalid && Price.touched" style="color: red;">Please Enter Valid Price..</span>
+
+      <label for="Remark">Remark</label>
+      <textarea  ngModel name="Remark" style="height: 100px;" #Remark="ngModel" required></textarea>
+      <span class="help-block" *ngIf="Remark.invalid && Remark.touched" style="color: red;">Please Enter Valid Remark..</span>
+
+
+
+
+<br>
+        <input type="submit" [disabled]="createPurchase.invalid" (click)="onActionButton($event)" value="Submit">
+      </form>
+    </div>
+ </div>
+</div>
+

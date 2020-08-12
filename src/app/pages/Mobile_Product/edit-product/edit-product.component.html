@@ -1,0 +1,100 @@
+<app-popup
+[message]="updatedPopup"
+*ngIf="updatedPopup"
+(close)="OnHandlePopup()"
+></app-popup>
+
+
+<div class="card">
+  <div class="container">
+    <h2 class="text-center text-divider">Edit Category</h2>
+    <hr style="color: grey;">
+
+    <div class="container">
+      <form [formGroup]="EditProductForm" (ngSubmit)="onUpdate()">
+        <label for="CompanyName">Company</label>
+        <input type="hidden" formControlName="Id" [(ngModel)]="product && product.Id">
+        <select id="company" formControlName="CompanyId" [(ngModel)]="companySelected">
+          <option *ngFor="let comp of company" [value]="comp && comp.Id">{{comp && comp.Name}}</option>
+        </select>
+
+
+       <label for="Country">Category</label>
+        <select id="category" formControlName="CategoryId" [(ngModel)]="categorySelected">
+          <option *ngFor="let cat of category" [value]="cat && cat.Id" >{{cat && cat.Name}}</option>
+        </select>
+
+
+        <label for="ModelName">Model Name</label>
+      <input type="text" formControlName="ModelName" [(ngModel)]="product && product.ModelName" placeholder="Model Name">
+
+
+      <label for="stock">Stock</label>
+      <input type="text" formControlName="stock" [(ngModel)]="product && product.stock" placeholder="Stock">
+
+
+
+      <label for="Country">Specification</label>
+      <textarea id="spec" formControlName="Specification" [(ngModel)]="product && product.Specification" placeholder="Specification.." style="height:200px"></textarea>
+
+   <br>
+
+        <input type="submit" value="Submit" (click)="actionButton($event)">
+      </form>
+    </div>
+ </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container">
+  <h2 class="text-center">Update Product</h2>
+  <form #ProductEditForm="ngForm" (ngSubmit)="onUpdate(ProductEditForm)">
+    <div>
+    <div class="row">
+      <div class="col-25">
+        <label for="company"  class="float-right font-weight-bold">Company</label>
+      </div>
+      <div class="col-75">
+        <select id="company" ngModel name="Company">
+          <option *ngFor="let comp of company" [value]="comp.CompanyId">{{comp && comp.CompanyName}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="category" class="float-right font-weight-bold">Category</label>
+      </div>
+      <div class="col-75">
+        <select id="category" ngModel name="Category">
+          <option *ngFor="let cat of category" [value]="cat.CategoryId" >{{cat && cat.CategoryName}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="spec" class="float-right font-weight-bold">Specification</label>
+      </div>
+      <div class="col-75">
+        <textarea id="spec" name="Specification" ngModel [(ngModel)]="product && product.Specification" placeholder="Specification.." style="height:200px"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <input type="submit" value="Submit">
+    </div>
+  </div>
+  </form>
+</div> -->

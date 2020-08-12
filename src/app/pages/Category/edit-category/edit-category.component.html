@@ -1,0 +1,24 @@
+<app-popup
+[message]="updateData"
+*ngIf="updateData"
+(close)="onHandlePopup()"
+>
+</app-popup>
+
+
+<div class="card">
+  <div class="container">
+    <h2 class="text-center text-divider">Edit Category</h2>
+    <hr style="color: grey;">
+
+    <div class="container">
+      <form [formGroup]="EditCategoryForm" (ngSubmit)="onSubmit()">
+        <label for="name">Category Name</label>
+        <input type="hidden" formControlName="Id" [(ngModel)]="categoryData && categoryData.Id">
+        <input type="text" formControlName="Name" [(ngModel)]="categoryData && categoryData.Name" >
+        <input type="submit" value="Submit" (click)="onActionButton($event)">
+      </form>
+    </div>
+ </div>
+</div>
+

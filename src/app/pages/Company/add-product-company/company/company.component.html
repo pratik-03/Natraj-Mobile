@@ -1,0 +1,141 @@
+<app-popup
+[message]="DeleteMessage"
+*ngIf="DeleteMessage"
+(close)="onDeletePopup()"
+>
+</app-popup>
+
+<app-loading-spinner *ngIf="loadingSpinner"></app-loading-spinner>
+
+
+<!-- <div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Company Data</h4>
+        <div class="float-right">
+          <button class="btn btn-primary" (click)="addButtonClick()">Add</button>
+        </div>
+      </div>
+      <div class="card-body" >
+
+          <flx-ui-datatable
+            [headers]="['Company', 'Country']"
+            [dataKeys]="['CompanyName','Country']"
+            [dataUrl]="'https://localhost:44374/api/Companies'"
+            [hasActionButtons]="true"
+            [actionButtons]="[{text:'Edit',class:'btn btn-secondary',icon:'fa fa-edit'},{text:'Delete',class:'btn btn-danger',icon:'fa fa-trash'}]"
+            [limit]="20"
+            [classes]="{addButton:'btn btn-primary'}"
+            (addButtonClicked)="addButtonClick()"
+            searchPlaceholder="Search here.."
+            (firstActionButtonClicked)="onEditCompany($event)"
+            (secondActionButtonClicked)="onDeleteCompany($event)"
+           ></flx-ui-datatable>
+
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- Delete message Error -->
+
+<div class="alert alert-danger" *ngIf="DeleteError">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+      ×</button>
+  <span class="glyphicon glyphicon-hand-right"></span> <strong>{{DeleteError}}</strong>
+  <hr class="message-inner-separator">
+  <p>
+      Error Occured</p>
+</div>
+
+
+
+
+
+<div class="row">
+  <div class="float-left">
+    <button class="btn btn-primary" style="border-radius: 5px;" [routerLink]="['/company/create']" routerLinkActive="router-link-active" >Add Company</button>
+  </div>
+  <div class="col-md-12">
+    <div class="card">
+
+      <div class="card-header">
+        <h4 class="card-title" class="text-center"> Company Data</h4>
+        <div class="float-right" class="col-md-5 form-group">
+          <input type="text" [(ngModel)]="term" class="form-control" placeholder="Search here..">
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <div class="center">
+              </div>
+            <thead class=" text-primary">
+              <th>
+                ID
+              </th>
+              <th>
+                Company Name
+              </th>
+              <th>
+                Country
+              </th>
+              <th>
+               Action
+              </th>
+
+            </thead>
+            <tbody *ngFor="let comp of company | filter:term | paginate: config; ; index as i">
+             <tr>
+               <td>   {{i+1}} </td>
+               <td>   {{comp.Name}} </td>
+               <td>   {{comp.Country}} </td>
+               <td>
+              <button class="btn btn-secondary" (click)="onEditCompany(comp.Id)"><i class="fa fa-edit"></i> Edit</button> &nbsp;
+              <button class="btn btn-danger" (click)="DeleteComfirmation()"><i class="fa fa-trash"></i> Delete</button>
+
+
+              <div *ngIf="DeleteComfirm">
+                <div class="modal in" style="display: block;">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Are you sure???</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>Are you sure you want to delete (this)?</p>
+                        <div class="row">
+                            <div class="col-12-xs text-center">
+                                &nbsp;&nbsp;&nbsp;<button class="btn btn-success btn-md" (click)="onDeleteCompany(comp.Id)"  >Yes</button> &nbsp;
+                                <button class="btn btn-danger btn-md" (click)="CancelDelete()" >No</button>
+                            </div>
+                        </div>
+                      </div>
+
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+              </div>
+
+
+              </td>
+               </tr>
+            </tbody>
+
+           </table>
+           <!-- Pagination -->
+           <div class="text-center">
+            <pagination-controls
+              (pageChange)="pageChanged($event)"
+            ></pagination-controls>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

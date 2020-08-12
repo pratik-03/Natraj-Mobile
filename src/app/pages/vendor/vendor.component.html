@@ -1,0 +1,48 @@
+
+<app-popup
+[message]="SubmittedMessage"
+*ngIf="SubmittedMessage"
+(close)="OnHandlePopup()"
+></app-popup>
+
+<!-- Error -->
+<div class="alert alert-danger" *ngIf="error">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+    ×</button>
+  <span class="glyphicon glyphicon-hand-right"></span> <strong>{{errorMessage}}</strong>
+  <hr class="message-inner-separator">
+  <p>
+    Error Occured</p>
+</div>
+
+<div class="card">
+  <div class="container">
+    <h2 class="text-center text-divider">Create Vendor</h2>
+    <hr style="color: grey;">
+
+    <div class="container">
+      <form #AddVendor="ngForm" (ngSubmit)="onSubmit(AddVendor)">
+
+       <label for="Name">Vendor Name</label>
+       <input type="text" ngModel name="Name" #VendorName="ngModel" required placeholder="Enter Vendor Name..">
+      <span class="help-block" *ngIf="VendorName.invalid && VendorName.touched" style="color: red;">Please Enter Valid Vendor Name..</span>
+
+      <label for="Contact">Mobile Number</label>
+      <input type="text" ngModel name="Contact" #Contact="ngModel" required placeholder="Enter Mobile Number..">
+      <span class="help-block" *ngIf="Contact.invalid && Contact.touched" style="color: red;">Please Enter Valid Mobile Number..</span>
+
+      <label for="Address">Address</label>
+      <textarea name="Address" ngModel  placeholder="Enter Address.." style="height:200px" #Address="ngModel" required></textarea>
+        <span class="help-block" *ngIf="Address.invalid && Address.touched" style="color: red;">Please Enter Valid Address..</span>
+
+<br>
+        <input type="submit" (click)="actionButton($event)" [disabled]="AddVendor.invalid" value="Submit">
+      </form>
+
+      <br>
+      <div class="text-align:center">
+     <button class="btn btn-link" routerLink="/purchase/create-purchase">Back to purchase order</button>
+      </div>
+    </div>
+ </div>
+</div>

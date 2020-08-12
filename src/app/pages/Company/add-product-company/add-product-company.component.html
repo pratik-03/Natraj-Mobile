@@ -1,0 +1,33 @@
+<app-popup
+[message]="addCompanyMessage"
+*ngIf="addCompanyMessage"
+(close)="onHandlePopupMessage()"
+></app-popup>
+
+<div class="card">
+  <div class="container">
+    <h2 class="text-center text-divider">Add Company</h2>
+    <hr style="color: grey;">
+
+    <div class="container">
+      <form [formGroup]="addCompanyForm" (ngSubmit)="onSubmit()">
+        <label for="CompanyName">Company Name</label>
+        <input type="text" formControlName="Name" placeholder="Company Name">
+        <span
+       *ngIf="!addCompanyForm.get('Name').valid && addCompanyForm.get('Name').touched"
+       class="help-block" style="color: red;">Please enter valid Company Name</span>
+
+       <label for="Country">Country</label>
+       <input type="text" formControlName="Country" placeholder="Country">
+       <span
+       *ngIf="!addCompanyForm.get('Country').valid && addCompanyForm.get('Country').touched"
+       class="help-block" style="color: red;">Please enter valid Country Name</span>
+
+<br>
+
+        <input type="submit" value="Submit" (click)="onActionButton($event)" [disabled]="!addCompanyForm.valid">
+      </form>
+    </div>
+ </div>
+</div>
+

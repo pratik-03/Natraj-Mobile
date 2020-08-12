@@ -1,0 +1,142 @@
+<div class="alert alert-danger" *ngIf="errormessage">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+    ×</button>
+  <span class="glyphicon glyphicon-hand-right"></span> <strong>Please check server connection</strong>
+  <hr class="message-inner-separator">
+  <p>
+    Error Occured</p>
+</div>
+
+
+<button class="btn btn-primary" routerLink="/products/create">Add Product</button>
+<app-loading-spinner *ngIf="loadingSpinner"></app-loading-spinner>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"> Product Data</h4>
+
+
+
+
+
+
+
+        <!-- Search -->
+        <div class="container">
+          <div class="form-inline">
+            <div class="form-group">
+              <label> Search Here</label>&nbsp;
+              <input type="text" [(ngModel)]="term" class="form-control" placeholder="Search here..">
+            </div> &nbsp;
+
+            <div class="form-group">
+              <label for="company">&nbsp; Comapny</label>&nbsp;
+              <select id="company" [(ngModel)]="term" class="form-control">
+                <option> -- Please select --</option>
+                <option *ngFor="let comp of company">{{comp && comp.Name}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="category">&nbsp; Category</label>&nbsp;
+              <select id="category" [(ngModel)]="term" class="form-control">
+                <option> -- Please select --</option>
+                <option *ngFor="let cat of category">{{cat && cat.Name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="card-body" >
+          <div class="table-responsive">
+            <table class="table">
+              <div class="center">
+              </div>
+              <thead class=" text-primary">
+                <th>
+                  ID
+                </th>
+                <th>
+                  Company
+                </th>
+                <th>
+                  Category
+                </th>
+                <th>
+                  Model Name
+                </th>
+                <th>
+                  Specification
+                </th>
+                <th>
+                 In Stock
+                </th>
+                <th>
+                  Purchase
+                </th>
+                <th>
+                  Action
+                </th>
+              </thead>
+              <tbody *ngFor="let product of products | filter:term | paginate: config; ; index as i">
+                <tr>
+                  <td (click)="onProductDetails(product.Id)"> {{i+1}} </td>
+                  <td (click)="onProductDetails(product.Id)"> {{product.Company.Name}} </td>
+                  <td (click)="onProductDetails(product.Id)"> {{product.Category.Name}} </td>
+                  <td (click)="onProductDetails(product.Id)"> {{product.ModelName}} </td>
+                  <td (click)="onProductDetails(product.Id)"> {{product.Specification | shorten }} </td>
+                  <th>{{product.stock}}</th>
+                  <td> <button class="btn btn-warning" (click)="onCreatePurchase(product.Id)">Purchase</button></td>
+                  <td>
+                    <button class="btn btn-secondary" (click)="onEdit(product.Id)"><i class="fa fa-edit"></i>
+                      Edit</button> &nbsp;
+                    <button class="btn btn-danger" (click)="DeleteConfirmation()"><i class="fa fa-trash"></i>
+                      Delete</button>
+
+                    <!-- Delete Modal -->
+                    <div *ngIf="DeleteConfirmationPopup">
+                      <div class="modal in" style="display: block;">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Are you sure???</h4>
+                            </div>
+                            <div class="modal-body">
+                              <p>Are you sure you want to delete (this)?</p>
+                              <div class="row">
+                                <div class="col-12-xs text-center">
+                                  &nbsp;&nbsp;&nbsp;<button class="btn btn-success btn-md"
+                                  (click)="onDelete(product.Id)">Yes</button> &nbsp;
+                                  <button class="btn btn-danger btn-md" (click)="CancelDelete()">No</button>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                      </div><!-- /.modal -->
+                    </div>
+
+
+
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+            <!-- Pagination -->
+            <div class="text-center">
+              <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

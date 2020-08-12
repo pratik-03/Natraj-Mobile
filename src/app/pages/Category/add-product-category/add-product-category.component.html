@@ -1,0 +1,27 @@
+ <app-popup
+[message]="AddRecordMessage"
+*ngIf="AddRecordMessage"
+(close)="OnHandlePopupMessage()"
+></app-popup>
+
+
+
+<div class="card">
+  <div class="container">
+    <h2 class="text-center text-divider">Add Category</h2>
+    <hr style="color: grey;">
+
+    <div class="container">
+      <form [formGroup]="addCategoryForm" (ngSubmit)="onSubmit()">
+        <label for="name">Category Name</label>
+        <input type="text" id="name" placeholder="Category Name"  formControlName="Name">
+        <span *ngIf="!addCategoryForm.get('Name').valid  && addCategoryForm.get('Name').touched" style="color: red;">
+          Please enter valid Category Name
+        </span>
+
+        <input type="submit" value="Submit" (click)="onActionButton($event)">
+      </form>
+    </div>
+ </div>
+</div>
+
