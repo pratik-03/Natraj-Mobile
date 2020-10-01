@@ -11,9 +11,9 @@
 
 
 <app-popup
-[message]="PurchaseMessage"
-*ngIf="PurchaseMessage"
-(close)="OnHandlePopup()"
+[message]="purchaseMessage"
+*ngIf="purchaseMessage"
+(close)="onHandlePopup()"
 ></app-popup>
 
 <app-loading-spinner *ngIf="loadingSpinner"></app-loading-spinner>
@@ -26,7 +26,42 @@
         <h4 class="card-title"> Purchase Data</h4>
 
 
-        <div class="card-body" >
+        <form #addClientForm="ngForm" (ngSubmit)="searchdata()" novalidate>
+          <div class="row" style="margin-top:10px;margin-bottom: 10px;">
+            <div class="col-sm-3 form-group">  </div>
+        <div class="col-sm-3 form-group">
+            <input
+            type="date"
+            [(ngModel)]="model.startdate"
+            #startdate="ngModel"
+            name="startdate"
+            placeholder="From Date"
+            class="form-control"/>
+        </div>
+        <div class="col-sm-3 form-group">
+            <input type="date"
+            [(ngModel)]="model.enddate"
+            #enddate="ngModel"
+            name="enddate"
+            placeholder="To Date"
+            class="form-control"/>
+        </div>
+        <div class="col-sm-3 form-group">
+            <button type="submit" class="btn btn-success" >Search</button>
+        </div>
+      </div>
+        </form>
+
+
+
+
+        <div class="form-group float-right" *ngIf="dateSearchTable" >
+          <p>Total Amount :  <span style="font-weight: bold;">{{getTotal()}}</span></p>
+        </div>
+
+
+
+        <div class="card-body" *ngIf="dateSearchTable">
           <div class="table-responsive">
             <table class="table">
               <div class="center">
@@ -39,41 +74,44 @@
                   Date of Purchase
                 </th>
                 <th>
-                  Vendor
+                 Product
                 </th>
                 <th>
-                  Company
+                 Category
                 </th>
                 <th>
-                  Category
-                </th>
-                <th>
-                 Desctiprion
-                </th>
-                <th>
-                  Quantity
+                 Quantity
                 </th>
                 <th>
                   Price
                 </th>
                 <th>
+                 Total Price
+                </th>
+                <th>
+                 Remark
+                </th>
+                  <th>
                   Delete
                 </th>
+
               </thead>
-              <tbody *ngFor="let purch of purchase | filter:term | paginate: config; ; index as i">
+              <tbody *ngFor="let purch of purchase | filter:term | filter:date1 | filter:date2 |paginate: config; ; index as i">
                 <tr>
                   <td (click)="onPurchaseDetails(purch.Id)"> {{i+1}} </td>
                   <td (click)="onPurchaseDetails(purch.Id)"> {{purch && purch.Date | date }} </td>
-                  <td (click)="onPurchaseDetails(purch.Id)"> {{purch && purch.Vendor.Name}} </td>
-                  <td (click)="onPurchaseDetails(purch.Id)"> {{purch && purch.Company.Name}} </td>
-                  <td (click)="onPurchaseDetails(purch.Id)"> {{purch && purch.Category.Name}} </td>
-                  <td>{{purch && purch.Description |shorten}}</td>
+                  <td (click)="onPurchaseDetails(purch.Id)"> {{purch && purch.Product.Company.Name}} </td>
+                  <td (click)="onPurchaseDetails(purch.Id)"> {{purch && purch.Product.Category.Name}} </td>
                   <td>{{purch && purch.Quantity}}</td>
                   <td>{{purch && purch.Price}}</td>
+                  <td>{{purch?.Quantity * purch?.Price}}</td>
+                  <td>{{purch && purch.Remark | shorten}}</td>
+
                   <td><button class="btn btn-danger" (click)="onDeletePopUp()">Delete</button>
 
+
                    <!-- Delete Modal -->
-                   <div *ngIf="DeleteConfirmation">
+                   <div *ngIf="deleteConfirmation">
                     <div class="modal in" style="display: block;">
                       <div class="modal-dialog">
                         <div class="modal-content">
@@ -86,7 +124,7 @@
                               <div class="col-12-xs text-center">
                                 &nbsp;&nbsp;&nbsp;<button class="btn btn-success btn-md"
                                 (click)="onDelete(purch.Id)">Yes</button> &nbsp;
-                                <button class="btn btn-danger btn-md" (click)="CancelDelete()">No</button>
+                                <button class="btn btn-danger btn-md" (click)="cancelDelete()">No</button>
                               </div>
                             </div>
                           </div>
@@ -99,7 +137,15 @@
 
                   </td>
                 </tr>
+
+
               </tbody>
+
+              <tfoot>
+                <th colspan="6">Total :</th>
+                <td>{{getTotal()}}</td>
+              </tfoot>
+
 
             </table>
             <!-- Pagination -->

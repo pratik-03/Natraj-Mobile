@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class AddProductCategoryComponent implements OnInit {
   addCategoryForm:FormGroup;
   AddRecordMessage = null;
+  submitSpinner = false;
 
   constructor(private categoryservice:CategoryService, private router: Router) { }
 
@@ -22,15 +23,17 @@ export class AddProductCategoryComponent implements OnInit {
   }
 
   onSubmit(){
-
+     this.submitSpinner = true;
     this.categoryservice.addCategories(this.addCategoryForm.value).subscribe((data)=>{
       this.AddRecordMessage = "  Record added Successfully."
+      this.submitSpinner = false;
     }, err=>{
-      this.AddRecordMessage = "An Error Occured."
-    })
+      this.AddRecordMessage = "An Error Occured.";
+      this.submitSpinner = false;
+    });
   }
 
-  OnHandlePopupMessage(){
+  onHandlePopupMessage(){
 
      this.AddRecordMessage = null;
      this.router.navigate(['category']);

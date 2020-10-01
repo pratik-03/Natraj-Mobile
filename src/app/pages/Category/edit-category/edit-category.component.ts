@@ -12,6 +12,7 @@ export class EditCategoryComponent implements OnInit {
   EditCategoryForm:FormGroup;
   CategoryId;
   categoryData;
+  submitSpinner = false;
 
   updateData = null;
 
@@ -33,16 +34,19 @@ export class EditCategoryComponent implements OnInit {
 
    this.categoryservice.getCategory(this.CategoryId).subscribe((data)=>{
     this.categoryData = data;
-    console.log(data);
+    // console.log(data);
    });
   }
 
 
   onSubmit(){
+    this.submitSpinner = true;
    this.categoryservice.updateCategory(this.CategoryId,this.EditCategoryForm.value).subscribe((data)=>{
     this.updateData = "Record Updated Successfully";
+    this.submitSpinner = false;
    },err=>{
      this.updateData= "An Error Occured";
+     this.submitSpinner = false;
    });
   }
 
@@ -56,8 +60,8 @@ export class EditCategoryComponent implements OnInit {
 
   onActionButton(event){
      setInterval(()=>{
-       (event.target as HTMLButtonElement).disabled = true; 
-     },500);    
+       (event.target as HTMLButtonElement).disabled = true;
+     },500);
  }
 
 }

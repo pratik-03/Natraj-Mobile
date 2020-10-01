@@ -1,8 +1,11 @@
 export class Purchase{
   public Id:number;
-  public Quantity:number;
-  public ProductId:number;
-  public Price:number;
-  public Date:Date
+  public Date:Date;
   public VendorId:string;
+  public ProductId:number;
+  public Remark:string;
+  public Quantity:number;
+  public Price:number;
+  public TotalPrice:number;
+
 }

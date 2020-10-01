@@ -10,7 +10,7 @@ import { UserComponent }            from '../../pages/user/user.component';
 import { MapsComponent }            from '../../pages/maps/maps.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductsTableComponent } from 'app/pages/Mobile_Product/products-table/products-table.component';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { LoadingSpinnerModule } from 'app/shared/loading-spinner/LoadingSpinner.Module';
 import { EditProductComponent } from 'app/pages/Mobile_Product/edit-product/edit-product.component';
 import { PopupComponent } from 'app/pages/popup/popup.component';
@@ -36,10 +36,18 @@ import { ShortenPipe } from 'app/pages/Mobile_Product/shorten.pipe';
 import { PurchaseComponent } from 'app/pages/purchase/purchase.component';
 import { CreatePurchaseComponent } from 'app/pages/purchase/create-purchase/create-purchase.component';
 import { VendorComponent } from 'app/pages/vendor/vendor.component';
-
-
-
-
+import { SellComponent } from 'app/pages/sell/sell.component';
+import { SellTableComponent } from 'app/pages/sell/sell-table/sell-table.component';
+import { SellDetailsComponent } from 'app/pages/sell/sell-details/sell-details.component';
+import { SubmitSpinnerComponent } from 'app/pages/submit-spinner/submit-spinner.component';
+import { ProfitComponent } from 'app/pages/profit/profit.component';
+import { Daterangepicker } from 'ng2-daterangepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { LoginComponent } from 'app/pages/user/login/login.component';
+import { AuthGuard } from 'app/pages/user/auth.guard';
+import { CarouselComponent } from 'app/pages/dashboard/carousel/carousel.component';
+import { CardComponent } from 'app/pages/dashboard/card/card.component';
+import { ContactComponent } from 'app/pages/contact/contact.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -64,7 +72,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FlxUiDatatableModule,
     PerfectScrollbarModule,
     Ng2SearchPipeModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    Daterangepicker,
+    BsDatepickerModule.forRoot()
   ],
   declarations: [
     DashboardComponent,
@@ -84,14 +94,25 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ShortenPipe,
     PurchaseComponent,
     CreatePurchaseComponent,
-    VendorComponent
+    VendorComponent,
+    SellComponent,
+    SellTableComponent,
+    SellDetailsComponent,
+    SubmitSpinnerComponent,
+    ProfitComponent,
+    LoginComponent,
+    CarouselComponent,
+    CardComponent,
+    ContactComponent
   ],
   providers:[
+
     FlxUiDataTable,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+    },
+    AuthGuard
   ]
  })
 

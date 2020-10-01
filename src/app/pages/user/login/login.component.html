@@ -1,0 +1,33 @@
+<div class="alert alert-danger" *ngIf="loggingError">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+    ×</button>
+  <span class="glyphicon glyphicon-hand-right"></span> <strong>Incorrect Password</strong>
+  <hr class="message-inner-separator">
+</div>
+
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="assets/Natraj.png" id="icon" alt="Natraj Mobile" height="50" width="200" />
+    </div>
+    <br>
+
+    <!-- Login Form -->
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(Username.value,Password.value)">
+      <input type="text" id="login" class="fadeIn second" #Username ngModel name="Username" placeholder="Username">
+      <input type="text" id="password" class="fadeIn third" ngModel #Password name="Password" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+    <p></p>
+    </div>
+
+  </div>
+</div>
+

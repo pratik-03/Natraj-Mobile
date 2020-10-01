@@ -8,12 +8,12 @@
 
 
 
-
+<app-submit-spinner *ngIf="SubmitSpinner"></app-submit-spinner>
 
 
 
 <button class="btn btn-primary" routerLink="/vendor">Add Vendor</button>
-<div class="card">
+<div class="card" *ngIf="!SubmitSpinner">
   <div class="container">
     <h2 class="text-center text-divider">Purchase Order</h2>
     <hr style="color: grey;">
@@ -31,17 +31,22 @@
         </select>
         <span class="help-block" *ngIf="Vendor.invalid && Vendor.touched" style="color: red;">Please Enter Valid Vendor..</span>
 
-        <!-- hiiden type for Product ID -->
+        <!-- hidden type for Product ID -->
        <input type="hidden" ngModel name="ProductId" [(ngModel)]="productId">
 
 
        <label for="Quantity">Quantity</label>
-       <input type="number" ngModel name="Quantity" #Quantity="ngModel" required>
+       <input type="number" ngModel name="Quantity" #Quantity="ngModel" (change)="onGetQty($event)" required>
       <span class="help-block" *ngIf="Quantity.invalid && Quantity.touched" style="color: red;">Please Enter Valid Quantity..</span>
 
       <label for="Price">Price</label>
-      <input type="number" ngModel name="Price" #Price="ngModel" required>
+      <input type="number" ngModel name="Price" (change)="onGetPrice($event)" #Price="ngModel" required>
       <span class="help-block" *ngIf="Price.invalid && Price.touched" style="color: red;">Please Enter Valid Price..</span>
+
+      <label for="TotalPrice">Total Price</label>
+      <input type="number" ngModel name="TotalPrice" [(ngModel)]="price * qty" >
+
+
 
       <label for="Remark">Remark</label>
       <textarea  ngModel name="Remark" style="height: 100px;" #Remark="ngModel" required></textarea>

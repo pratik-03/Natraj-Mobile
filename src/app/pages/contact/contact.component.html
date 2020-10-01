@@ -1,0 +1,66 @@
+<div class="card">
+  <div class="container">
+    <h2 class="text-center text-divider">Contact Us</h2>
+    <hr style="color: grey" />
+
+    <div class="container">
+      <form #addContact="ngForm" (ngSubmit)="onSubmit(addContact)">
+        <label for="Name">Your Name</label>
+        <input type="text" ngModel name="Name" #Name="ngModel" required />
+        <span
+          class="help-block"
+          *ngIf="Name.invalid && Name.touched"
+          style="color: red"
+          >Please Enter Valid Name..</span
+        >
+
+        <label for="Email">Email</label>
+        <input type="email" ngModel name="Email" #Email="ngModel" required />
+        <span
+          class="help-block"
+          *ngIf="Email.invalid && Email.touched"
+          style="color: red"
+          >Please Enter Valid Email..</span
+        >
+
+        <label for="Phone">Phone Number</label>
+        <input type="number" ngModel name="Phone" #Phone="ngModel" required />
+        <span
+          class="help-block"
+          *ngIf="Phone.invalid && Phone.touched"
+          style="color: red"
+          >Please Enter Valid Phone Number..</span
+        >
+
+        <label for="Country">Your Message</label>
+        <textarea
+          id="spec"
+          name="Message"
+          ngModel
+          placeholder="Your Message.."
+          style="height: 200px"
+          #Message="ngModel"
+          required
+        ></textarea>
+        <span
+          class="help-block"
+          *ngIf="Message.invalid && Message.touched"
+          style="color: red"
+          >Please Enter Valid Message</span
+        >
+
+        <br />
+
+        <input type="submit" value="Submit" [disabled]="!addContact.valid" />
+      </form>
+    </div>
+    <hr>
+  <br>
+  <h1>OR</h1>
+  <br>
+
+    <span style="font-weight: bold;">Contact Number : +91 9881044076 </span><p></p>
+    <span style="font-weight: bold;">Email: kiranshirsath011@gmail.com </span><p></p>
+
+  </div>
+</div>

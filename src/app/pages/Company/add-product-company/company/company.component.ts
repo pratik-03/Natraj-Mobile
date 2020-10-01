@@ -13,13 +13,14 @@ import { Company } from '../company.model';
 })
 export class CompanyComponent implements OnInit {
 company:Company;
-DeleteMessage = null;
-DeleteError = null;
+deleteMessage = null;
+deleteError = null;
 loadingSpinner = false;
-DeleteComfirm = false;
+deleteComfirm = false;
+term;
 
  //Pagination
- config: any;
+ config: any = null;
  collection = { count: this.config, data: [] };
  //
 
@@ -59,18 +60,18 @@ pageChanged(event) {
 
   onEditCompany(companyId){
     this.router.navigate(['company/edit',companyId])
-  console.log(companyId);
+  // console.log(companyId);
   }
 
   onDeleteCompany(companyId){
-      this.DeleteComfirm = false;
+      this.deleteComfirm = false;
       this.companyservice.deleteCompany(companyId).subscribe((res)=>{
-      this.DeleteMessage = "Deleted Successfully"
+      this.deleteMessage = "Deleted Successfully"
       this.ngOnInit();
     },
      err=>{
-       
-       this.DeleteMessage = err.error.Message;
+
+       this.deleteMessage = err.error.Message;
      }
     );
   }
@@ -80,16 +81,16 @@ pageChanged(event) {
   }
 
   onDeletePopup(){
-    this.DeleteMessage = null;
+    this.deleteMessage = null;
  }
 
 
- DeleteComfirmation(){
-   this.DeleteComfirm = true;
+ deleteComfirmation(){
+   this.deleteComfirm = true;
  }
 
- CancelDelete(){
-   this.DeleteComfirm = false;
+ cancelDelete(){
+   this.deleteComfirm = false;
  }
 
 }

@@ -33,19 +33,20 @@
 
             <div class="form-group">
               <label for="company">&nbsp; Comapny</label>&nbsp;
-              <select id="company" [(ngModel)]="term" class="form-control">
-                <option> -- Please select --</option>
+              <select id="company" [(ngModel)]="comp" class="form-control">
+                <option>{{EmptyString}}</option>
                 <option *ngFor="let comp of company">{{comp && comp.Name}}</option>
               </select>
             </div>
 
             <div class="form-group">
               <label for="category">&nbsp; Category</label>&nbsp;
-              <select id="category" [(ngModel)]="term" class="form-control">
-                <option> -- Please select --</option>
+              <select id="category" [(ngModel)]="cat" class="form-control">
+                <option>{{EmptyString}}</option>
                 <option *ngFor="let cat of category">{{cat && cat.Name}}</option>
               </select>
-            </div>
+            </div>&nbsp; &nbsp;
+            <button class="btn btn-danger" (click)="onClearFilter()">X</button>
           </div>
         </div>
 
@@ -79,10 +80,13 @@
                   Purchase
                 </th>
                 <th>
+                  Sell
+                </th>
+                <th>
                   Action
                 </th>
               </thead>
-              <tbody *ngFor="let product of products | filter:term | paginate: config; ; index as i">
+              <tbody *ngFor="let product of products | filter:term | filter:comp | filter:cat  | paginate: config; ; index as i">
                 <tr>
                   <td (click)="onProductDetails(product.Id)"> {{i+1}} </td>
                   <td (click)="onProductDetails(product.Id)"> {{product.Company.Name}} </td>
@@ -91,6 +95,7 @@
                   <td (click)="onProductDetails(product.Id)"> {{product.Specification | shorten }} </td>
                   <th>{{product.stock}}</th>
                   <td> <button class="btn btn-warning" (click)="onCreatePurchase(product.Id)">Purchase</button></td>
+                  <td> <button class="btn btn-success" (click)="onCreateSell(product.Id)">Sell</button></td>
                   <td>
                     <button class="btn btn-secondary" (click)="onEdit(product.Id)"><i class="fa fa-edit"></i>
                       Edit</button> &nbsp;

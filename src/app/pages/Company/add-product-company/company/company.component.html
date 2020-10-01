@@ -1,6 +1,6 @@
 <app-popup
-[message]="DeleteMessage"
-*ngIf="DeleteMessage"
+[message]="deleteMessage"
+*ngIf="deleteMessage"
 (close)="onDeletePopup()"
 >
 </app-popup>
@@ -41,10 +41,10 @@
 
 <!-- Delete message Error -->
 
-<div class="alert alert-danger" *ngIf="DeleteError">
+<div class="alert alert-danger" *ngIf="deleteError">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
       ×</button>
-  <span class="glyphicon glyphicon-hand-right"></span> <strong>{{DeleteError}}</strong>
+  <span class="glyphicon glyphicon-hand-right"></span> <strong>{{deleteError}}</strong>
   <hr class="message-inner-separator">
   <p>
       Error Occured</p>
@@ -88,17 +88,17 @@
               </th>
 
             </thead>
-            <tbody *ngFor="let comp of company | filter:term | paginate: config; ; index as i">
+            <tbody *ngFor="let comp of company | filter:term | paginate: config;  index as i">
              <tr>
                <td>   {{i+1}} </td>
                <td>   {{comp.Name}} </td>
                <td>   {{comp.Country}} </td>
                <td>
               <button class="btn btn-secondary" (click)="onEditCompany(comp.Id)"><i class="fa fa-edit"></i> Edit</button> &nbsp;
-              <button class="btn btn-danger" (click)="DeleteComfirmation()"><i class="fa fa-trash"></i> Delete</button>
+              <button class="btn btn-danger" (click)="deleteComfirmation()"><i class="fa fa-trash"></i> Delete</button>
 
 
-              <div *ngIf="DeleteComfirm">
+              <div *ngIf="deleteComfirm">
                 <div class="modal in" style="display: block;">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -110,7 +110,7 @@
                         <div class="row">
                             <div class="col-12-xs text-center">
                                 &nbsp;&nbsp;&nbsp;<button class="btn btn-success btn-md" (click)="onDeleteCompany(comp.Id)"  >Yes</button> &nbsp;
-                                <button class="btn btn-danger btn-md" (click)="CancelDelete()" >No</button>
+                                <button class="btn btn-danger btn-md" (click)="cancelDelete()" >No</button>
                             </div>
                         </div>
                       </div>

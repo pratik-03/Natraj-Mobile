@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+
+      <div class="card-header">
+        <h4 class="card-title" class="text-center"> Sell Info</h4>
+      </div>
+      <div class="card-body">
+        <div class="text-center">
+          <div class="container">
+             <div>
+              <p> <span style="font-weight: bold;">Customer Name : </span> &nbsp; &nbsp;    {{sell && sell.CustomerName}}</p>
+              <p> <span style="font-weight: bold;">Customer Contact : </span> &nbsp; &nbsp; {{sell && sell.CustomerContact}}</p>
+              <p> <span style="font-weight: bold;">Company : </span> &nbsp; &nbsp;          {{sell && sell.Product.Company.Name}}</p>
+              <p> <span style="font-weight: bold;">Category : </span> &nbsp; &nbsp;         {{sell && sell.Product.Category.Name}}</p>
+              <p> <span style="font-weight: bold;">Model: </span> &nbsp; &nbsp;             {{sell && sell.Product.ModelName}}</p>
+              <p> <span style="font-weight: bold;">Quantity : </span> &nbsp; &nbsp;         {{sell && sell.Quantity}}</p>
+              <p> <span style="font-weight: bold;">Amount :</span> &nbsp; &nbsp;            {{sell && sell.Amount}}</p>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

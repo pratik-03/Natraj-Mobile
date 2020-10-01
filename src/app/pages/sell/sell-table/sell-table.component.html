@@ -1,0 +1,113 @@
+
+<app-loading-spinner *ngIf="loadingSpinner"></app-loading-spinner>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+
+      <div class="card-header">
+        <h4 class="card-title" class="text-center"> Sell Report</h4>
+      </div>
+
+      <form #addClientForm="ngForm" (ngSubmit)="searchdata()" novalidate>
+        <div class="row" style="margin-top:10px;margin-bottom: 10px;">
+          <div class="col-sm-3 form-group">  </div>
+      <div class="col-sm-3 form-group">
+          <input
+          type="date"
+          [(ngModel)]="model.startdate"
+          #startdate="ngModel"
+          name="startdate"
+          placeholder="From Date"
+          class="form-control"/>
+      </div>
+      <div class="col-sm-3 form-group">
+          <input type="date"
+          [(ngModel)]="model.enddate"
+          #enddate="ngModel"
+          name="enddate"
+          placeholder="To Date"
+          class="form-control"/>
+      </div>
+      <div class="col-sm-3 form-group">
+          <button type="submit" class="btn btn-success" >Search</button>
+      </div>
+    </div>
+      </form>
+
+
+
+      <div class="row" *ngIf="dateSearchTable">
+        <div class="col-sm-12">
+          <div class="form-group float-right" >
+            <p>Total Amount :  <span style="font-weight: bold;">{{getTotal()}}</span></p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card-body" *ngIf="dateSearchTable">
+        <div class="table-responsive">
+          <table class="table">
+            <div class="center">
+              </div>
+            <thead class=" text-primary">
+              <th>
+                ID
+              </th>
+              <th>
+               Date of Sell
+              </th>
+              <th>
+               Company
+              </th>
+              <th>
+               Category
+              </th>
+              <th>
+                Model
+              </th>
+              <th>
+                Quantity
+              </th>
+              <th>
+                Amount
+              </th>
+              <th>
+                Total Amount
+              </th>
+
+            </thead>
+            <tbody *ngFor="let sell of sells | filter:term | filter:date | paginate: config; ; index as i">
+             <tr>
+               <td (click)="onDetails(sell.Id)" >   {{i+1}} </td>
+               <td (click)="onDetails(sell.Id)" >   {{sell?.Date | date}} </td>
+               <td (click)="onDetails(sell.Id)" >   {{sell?.Product.Company.Name}} </td>
+               <td (click)="onDetails(sell.Id)" >   {{sell?.Product.Category.Name}}</td>
+               <td (click)="onDetails(sell.Id)" >   {{sell?.Product.ModelName}}</td>
+               <td (click)="onDetails(sell.Id)" >   {{sell?.Quantity}}</td>
+               <td (click)="onDetails(sell.Id)" >   {{sell?.Amount}}</td>
+               <td (click)="onDetails(sell.Id)" >   {{sell?.Quantity * sell?.Amount}}</td>
+               </tr>
+
+            </tbody>
+
+            <tfoot>
+              <th colspan="7">Total :</th>
+              <td>{{getTotal()}}</td>
+            </tfoot>
+
+           </table>
+           <!-- Pagination -->
+           <div class="text-center">
+            <pagination-controls
+              (pageChange)="pageChanged($event)"
+            ></pagination-controls>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

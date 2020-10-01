@@ -10,8 +10,9 @@ import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductDetailsComponent } from './pages/Mobile_Product/product-details/product-details.component';
+import { AuthInterceptor } from './shared/auth.interceptor';
 
 
 
@@ -21,7 +22,7 @@ import { ProductDetailsComponent } from './pages/Mobile_Product/product-details/
     AppComponent,
     AdminLayoutComponent,
     ProductDetailsComponent
-  ],
+   ],
   imports: [
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes,{
@@ -34,7 +35,13 @@ import { ProductDetailsComponent } from './pages/Mobile_Product/product-details/
     FixedPluginModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi : true
+    }
+  ],
   bootstrap: [AppComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

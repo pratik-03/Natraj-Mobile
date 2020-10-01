@@ -38,19 +38,19 @@
   </form>
 </div> -->
 
+<app-submit-spinner *ngIf="submitSpinner"></app-submit-spinner>
 
-
-<div class="card">
+<div class="card" *ngIf="!submitSpinner">
   <div class="container">
     <h2 class="text-center text-divider">Edit Company</h2>
     <hr style="color: grey;">
 
     <div class="container">
-      <form [formGroup]="CompanyEditForm" (ngSubmit)="onUpdate()">
+      <form [formGroup]="companyEditForm" (ngSubmit)="onUpdate()">
         <label for="CompanyName">Company Name</label>
 
         <input type="text" id="Name" formControlName="Name" [(ngModel)]="companyData && companyData.Name">
-        <span *ngIf="!CompanyEditForm.get('Name').valid && CompanyEditForm.get('Name').touched"  style="color: red;">
+        <span *ngIf="!companyEditForm.get('Name').valid && companyEditForm.get('Name').touched"  style="color: red;">
           Please valid company Name
         </span>
 
@@ -58,14 +58,14 @@
        <label for="Country">Country</label>
 
        <input type="text"  id="Country" formControlName="Country"  [(ngModel)]="companyData && companyData.Country">
-       <span *ngIf="!CompanyEditForm.get('Country').valid && CompanyEditForm.get('Country').touched" style="color: red;">
+       <span *ngIf="!companyEditForm.get('Country').valid && companyEditForm.get('Country').touched" style="color: red;">
         Please valid Country Name
       </span>
 
       <input type="hidden" formControlName="Id" [(ngModel)]="companyData && companyData.Id" >
 <br>
 
-      <input type="submit"  value="Submit" (click)="onActionButton($event)" [disabled]="!CompanyEditForm.valid">
+      <input type="submit"  value="Submit" (click)="onActionButton($event)" [disabled]="!companyEditForm.valid">
       </form>
     </div>
  </div>

@@ -15,6 +15,7 @@ export class AddProductCompanyComponent implements OnInit {
   addCompanyForm:FormGroup;
   comp:Company;
   addCompanyMessage = null;
+  submitSpinner = false;
 
   constructor(private companyservice:ComapnyService, private router:Router) { }
 
@@ -26,10 +27,13 @@ export class AddProductCompanyComponent implements OnInit {
   }
 
   onSubmit(){
+    this.submitSpinner = true;
    this.companyservice.addCompany(this.addCompanyForm.value).subscribe((data)=>{
      this.addCompanyMessage = "  Record Submitted Successfully.";
+     this.submitSpinner = false;
    },err=>{
      this.addCompanyMessage = "An error occured.";
+     this.submitSpinner = false;
    })
   }
 

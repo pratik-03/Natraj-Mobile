@@ -21,6 +21,7 @@ export class EditProductComponent implements OnInit, OnDestroy {
  sub:Subscription;
  companySelected;
  categorySelected;
+ SubmitSpinner = false;
 
 
  EditProductForm:FormGroup;
@@ -36,7 +37,7 @@ export class EditProductComponent implements OnInit, OnDestroy {
   //GET Category
  getCategories(){
   this.sub = this.productservice.getCategories().subscribe((data)=>{
-   console.log(data);
+  //  console.log(data);
    this.category = data as any;
   });
  }
@@ -44,7 +45,7 @@ export class EditProductComponent implements OnInit, OnDestroy {
  //GET Company
  getCompanies(){
    this.sub = this.productservice.getCompanies().subscribe((data)=>{
-   console.log(data);
+  //  console.log(data);
    this.company = data as any;
    });
  }
@@ -70,12 +71,12 @@ export class EditProductComponent implements OnInit, OnDestroy {
 
     //get single product
      this.sub = this.productservice.getProduct(this.productId).subscribe((data)=>{
-       console.log(data);
+      //  console.log(data);
      this.product = data as any;
      this.categorySelected = this.product.CategoryId;
      this.companySelected = this.product.CompanyId;
-     console.log("Category Select ID : "+ this.product.CategoryId)
-     console.log("company selected id : "+ this.product.CompanyId);
+    //  console.log("Category Select ID : "+ this.product.CategoryId)
+    //  console.log("company selected id : "+ this.product.CompanyId);
      })
 
      // GET Category
@@ -88,13 +89,19 @@ export class EditProductComponent implements OnInit, OnDestroy {
 
 
   onUpdate(){
-    console.log(this.EditProductForm.value);
+    // console.log(this.EditProductForm.value);
+
+   this.SubmitSpinner = true;
 
     this.sub = this.productservice.updateProduct(this.productId,this.EditProductForm.value).subscribe((data)=>{
     const message = "Record Updated Successfully.."
     this.updatedPopup = message;
-     console.log(this.productId);
+    this.SubmitSpinner = false;
+    //  console.log(this.productId);
      console.log(data);
+    },err=>{
+      this.updatedPopup = "An Error Occured.";
+      this.SubmitSpinner = false;
     });
   }
 

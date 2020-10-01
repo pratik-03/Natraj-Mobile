@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+
+      <div class="card-header">
+        <h4 class="card-title" class="text-center"> Profit Report</h4>
+        <div class="float-right" class="col-md-5 form-group">
+          <input type="text" [(ngModel)]="term" class="form-control" placeholder="Search here..">
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <div class="center">
+              </div>
+            <thead class=" text-primary">
+              <th>
+                ID
+              </th>
+              <th>
+                Date
+              </th>
+              <th>
+               Company
+              </th>
+              <th>
+                Category
+              </th>
+              <th>
+                Model Name
+              </th>
+              <th>
+               Profit
+              </th>
+
+
+            </thead>
+            <tbody *ngFor="let profit of profits | filter:term | paginate: config;  index as i">
+             <tr>
+               <td>   {{i+1}} </td>
+               <td>   {{profit?.Sell.Date | date}} </td>
+               <td>   {{profit?.Sell.Product.Company.Name}} </td>
+               <td>   {{profit?.Sell.Product.Category.Name}}</td>
+               <td>   {{profit?.Sell.Product.ModelName}}</td>
+               <td>   {{profit?.Profit}}</td>
+                </tr>
+            </tbody>
+
+           </table>
+           <!-- Pagination -->
+           <div class="text-center">
+            <pagination-controls
+              (pageChange)="pageChanged($event)"
+            ></pagination-controls>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

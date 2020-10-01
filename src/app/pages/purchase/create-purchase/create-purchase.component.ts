@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PurchaseService } from '../purchase.service';
-import { Purchase } from '../purchase.model';
 import { NgForm } from '@angular/forms';
 import { ProductService } from 'app/pages/Mobile_Product/product.service';
 import { VendorService } from 'app/pages/vendor/vendor.service';
@@ -24,6 +23,10 @@ export class CreatePurchaseComponent implements OnInit {
  today = new Date().getDate();
  AddPurchaseMessage = null;
  clearInterval;
+ SubmitSpinner = false;
+ qty;
+ price;
+ TotalPrice;
 
   constructor(private PurchaseService:PurchaseService,
               private productservice:ProductService,
@@ -36,24 +39,24 @@ export class CreatePurchaseComponent implements OnInit {
   getProductIdForPO(){
     this.route.params.subscribe((param:Params)=>{
     this.productId = +param['id'];
-    console.log(this.productId)
+    // console.log(this.productId)
     });
   }
 
 
   // get purchase
-  getPurchase(){
-   this.PurchaseService.getPurchaseItems().subscribe((purchaseItem)=>{
-   this.purchase = purchaseItem as any;
-   console.log(this.purchase);
-   });
-  }
+  // getPurchase(){
+  //  this.PurchaseService.getPurchaseItems().subscribe((purchaseItem)=>{
+  //  this.purchase = purchaseItem as any;
+  // //  console.log(this.purchase);
+  //  });
+  // }
 
   //get products
   getProduct(){
     this.productservice.getProducts().subscribe((data)=>{
      this.product = data as any;
-     console.log(this.product);
+    //  console.log(this.product);
     });
   }
 
@@ -67,7 +70,7 @@ export class CreatePurchaseComponent implements OnInit {
 
   ngOnInit(): void {
 
-  this.getPurchase();
+  // this.getPurchase();
 
   this.getProduct();
 
@@ -78,6 +81,9 @@ export class CreatePurchaseComponent implements OnInit {
   }
 
   onSubmit(purchase:NgForm){
+
+    this.SubmitSpinner = true;
+
     const pur = {
       Date         : purchase.value.Date,
       VendorId     : purchase.value.VendorId,
@@ -85,12 +91,18 @@ export class CreatePurchaseComponent implements OnInit {
       Remark       : purchase.value.Remark,
       Quantity     : purchase.value.Quantity,
       Price        : purchase.value.Price,
+      TotalPrice   : purchase.value.TotalPrice
       }
-    console.log(pur);
+    // console.log(pur);
 
     this.PurchaseService.addPurchase(pur).subscribe((data)=>{
-     console.log("Record Submitted successfully!");
+    //  console.log("Record Submitted successfully!");
      this.AddPurchaseMessage = "Record Submitted successfully!";
+     this.SubmitSpinner = false;
+    //  console.log(data);
+    },err=>{
+      this.AddPurchaseMessage = "An Error Occured.";
+      this.SubmitSpinner = false;
     });
     purchase.reset();
   }
@@ -106,6 +118,14 @@ export class CreatePurchaseComponent implements OnInit {
       (event.target as HTMLButtonElement).disabled = true;
     },500);
 
+  }
+
+  onGetQty(event){
+    this.qty = event.target.value;
+  }
+
+  onGetPrice(event){
+   this.price = event.target.value;
   }
 
 }

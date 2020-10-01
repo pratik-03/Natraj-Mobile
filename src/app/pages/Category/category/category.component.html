@@ -29,10 +29,10 @@
 
 <!-- Delete message Error -->
 
-<div class="alert alert-danger" *ngIf="DeleteMessage">
+<div class="alert alert-danger" *ngIf="deleteMessage">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
       ×</button>
-  <span class="glyphicon glyphicon-hand-right"></span> <strong>{{DeleteMessage}}</strong>
+  <span class="glyphicon glyphicon-hand-right"></span> <strong>{{deleteMessage}}</strong>
   <hr class="message-inner-separator">
   <p>
       Error Occured</p>
@@ -88,9 +88,9 @@
                <td>   {{cat.Name}} </td>
                <td>
               <button class="btn btn-secondary" (click)="onEditCategory(cat.Id)"><i class="fa fa-edit"></i> Edit</button> &nbsp;
-              <button class="btn btn-danger" (click)="DeleteConfirmation()"><i class="fa fa-trash"></i> Delete</button>
+              <button class="btn btn-danger" (click)="deleteConfirmation()"><i class="fa fa-trash"></i> Delete</button>
 
-              <div *ngIf="DeleteConfirm">
+              <div *ngIf="deleteConfirm">
               <div class="modal in" style="display: block;">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -102,7 +102,7 @@
                       <div class="row">
                           <div class="float-right">
                             &nbsp;&nbsp;&nbsp;<button class="btn btn-success btn-md" (click)="onDeleteCategory(cat.Id)"  >Yes</button>&nbsp;
-                              <button class="btn btn-danger btn-md" (click)="CancelDelete()" >No</button>
+                              <button class="btn btn-danger btn-md" (click)="cancelDelete()" >No</button>
                           </div>
                       </div>
                     </div>

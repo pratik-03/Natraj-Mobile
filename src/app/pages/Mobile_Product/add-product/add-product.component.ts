@@ -16,12 +16,14 @@ export class AddProductComponent implements OnInit {
   category:Category[];
   company: Company[];
   AddProductMessage = null;
+  SubmitSpinner = false;
+
   constructor(private productservice:ProductService, private router:Router) { }
 
  //GET Category
  getCategories(){
   this.productservice.getCategories().subscribe((data)=>{
-   console.log(data);
+  //  console.log(data);
    this.category = data as [];
   });
  }
@@ -29,14 +31,14 @@ export class AddProductComponent implements OnInit {
  //GET Company
  getCompanies(){
    this.productservice.getCompanies().subscribe((data)=>{
-     console.log(data);
+    //  console.log(data);
    this.company = data as [];
    });
  }
 
   ngOnInit(): void {
     this.productservice.getProducts().subscribe((data)=>{
-      console.log(data);
+      // console.log(data);
     this.product = data as [];
     })
 
@@ -48,6 +50,9 @@ export class AddProductComponent implements OnInit {
   }
 
   onSubmit(prod:NgForm){
+
+    this.SubmitSpinner = true;
+
     const product = {
       CategoryId:prod.value.Category,
       CompanyId:prod.value.Company,
@@ -55,14 +60,18 @@ export class AddProductComponent implements OnInit {
       stock : prod.value.stock,
       Specification:prod.value.Specification
     }
-    console.log(product);
+    // console.log(product);
      this.productservice.addProduct(product).subscribe((data)=>{
       const message = "Product Added Successfully..";
       this.AddProductMessage = message;
-      console.log(data);
+      this.SubmitSpinner = false;
+      this.router.navigate(['products']);
+
+      // console.log(data);
      },
      err=>{
         this.AddProductMessage = err.message;
+        this.SubmitSpinner = false;
      }
      );
   }

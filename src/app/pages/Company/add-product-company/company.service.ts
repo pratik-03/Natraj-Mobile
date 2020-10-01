@@ -6,30 +6,39 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 
 export class ComapnyService{
-  rootUrl = "https://localhost:44320/";
+  rootUrl = "http://natraj-mobile.somee.com/";
+
 
 constructor(private http:HttpClient){}
 
 
-
   addCompany(company){
+    // const token = localStorage.getItem('userToken');
+    // const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
   return this.http.post(this.rootUrl+"api/Companies",company);
  }
 
  getCompanies(){
-   return this.http.get(this.rootUrl+"api/Companies");
+//  const token = localStorage.getItem("userToken");
+//  const headers = new HttpHeaders({'Authorization' : `Bearer ${token}`});
+  return this.http.get(this.rootUrl+"api/Companies");
  }
 
  deleteCompany(id){
+  // const token = localStorage.getItem("userToken");
+  // const headers = new HttpHeaders({'Authorization' : `Bearer ${token}`});
    return this.http.delete(this.rootUrl+"api/Companies/"+id);
  }
 
  getCompany(id){
+  // const token = localStorage.getItem("userToken");
+  // const headers = new HttpHeaders({'Authorization' : `Bearer ${token}`});
   return this.http.get(this.rootUrl+"api/Companies/"+id);
  }
 
  updateCompany(id:number, company){
-  // const header = new HttpHeaders().set('content-type', 'application/json');
+  // const token = localStorage.getItem("userToken");
+  // const headers = new HttpHeaders({'Authorization' : `Bearer ${token}`});
    return this.http.put(this.rootUrl+"api/Companies/"+id,(company));
  }
 

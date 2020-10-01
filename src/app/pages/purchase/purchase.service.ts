@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Purchase } from './purchase.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PurchaseService {
-  rootURL="https://localhost:44320/api/";
+  rootURL="http://natraj-mobile.somee.com/api/";
   constructor(private http:HttpClient) { }
 
   getPurchaseItems(){
@@ -17,8 +17,12 @@ export class PurchaseService {
     return this.http.post(this.rootURL + "Purchases",purchase);
   }
 
-  deletePurchase(Id){
+  deletePurchase(Id:number){
     return this.http.delete(this.rootURL + "Purchases/"+Id);
+  }
+
+  getDateFilter(model:any){
+    return this.http.post(this.rootURL+ "PurchaseDateFilter",model);
   }
 
 }

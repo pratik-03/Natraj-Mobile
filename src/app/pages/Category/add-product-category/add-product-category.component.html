@@ -1,12 +1,12 @@
  <app-popup
 [message]="AddRecordMessage"
 *ngIf="AddRecordMessage"
-(close)="OnHandlePopupMessage()"
+(close)="onHandlePopupMessage()"
 ></app-popup>
 
+<app-submit-spinner *ngIf="submitSpinner"></app-submit-spinner>
 
-
-<div class="card">
+<div class="card" *ngIf="!submitSpinner">
   <div class="container">
     <h2 class="text-center text-divider">Add Category</h2>
     <hr style="color: grey;">

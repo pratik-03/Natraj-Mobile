@@ -6,11 +6,77 @@
     </a>
   </div>
     <ul class="nav">
-        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
+        <!-- <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
             <a [routerLink]="[menuItem.path]">
                 <i class=" {{menuItem.icon}}"></i>
                 <p>{{menuItem.title}}</p>
             </a>
-        </li>
+        </li> -->
+
+
+        <li routerLinkActive="active" class="">
+          <a routerLink="/dashboard">
+              <i class="fa fa-university"></i>
+              <p>Dashboard</p>
+          </a>
+      </li>
+
+      <li routerLinkActive="active" class="">
+        <a routerLink="/location">
+            <i class="fa fa-user-circle-o"></i>
+            <p>location</p>
+        </a>
+    </li>
+
+    <li routerLinkActive="active" class="">
+      <a routerLink="/user">
+          <i class="fa fa-product-hunt"></i>
+          <p>Shop Owner</p>
+      </a>
+  </li>
+
+
+
+        <li routerLinkActive="active" class="" *ngIf="userservice.isLoggedIn == true">
+          <a routerLink="/products">
+              <i class="fa fa-product-hunt"></i>
+              <p>products</p>
+          </a>
+      </li>
+
+      <li routerLinkActive="active" class="" *ngIf="userservice.isLoggedIn == true">
+        <a routerLink="/company">
+            <i class="fa fa-industry"></i>
+            <p>company</p>
+        </a>
+    </li>
+
+    <li routerLinkActive="active" class="" *ngIf="userservice.isLoggedIn == true">
+      <a routerLink="/category">
+          <i class="fa fa-list-alt"></i>
+          <p>category</p>
+      </a>
+  </li>
+
+  <li routerLinkActive="active" class="" *ngIf="userservice.isLoggedIn == true">
+    <a routerLink="/purchase">
+        <i class="fa fa-shopping-cart"></i>
+        <p>purchase</p>
+    </a>
+</li>
+
+<li routerLinkActive="active" class="" *ngIf="userservice.isLoggedIn == true">
+  <a routerLink="/sell-table">
+      <i class="fa fa-exchange"></i>
+      <p>Sell</p>
+  </a>
+</li>
+
+<li routerLinkActive="active" class="">
+  <a routerLink="/contact">
+      <i class="fa fa-address-card-o"></i>
+      <p>Contact us</p>
+  </a>
+</li>
     </ul>
 </div>

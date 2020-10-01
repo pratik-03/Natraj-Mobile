@@ -1,0 +1,71 @@
+
+
+<app-popup
+[message]="sellMessage"
+*ngIf="sellMessage"
+(close)="OnHandlePopup()"
+></app-popup>
+
+
+
+<app-submit-spinner *ngIf="SubmitSpinner"></app-submit-spinner>
+
+
+<button class="btn btn-primary" routerLink="/vendor">Add Vendor</button>
+<div class="card" *ngIf="!SubmitSpinner">
+  <div class="container">
+    <h2 class="text-center text-divider">Sell</h2>
+    <hr style="color: grey;">
+
+    <div class="container">
+      <form #CreateSell="ngForm" (ngSubmit)="onSubmit(CreateSell)">
+
+        <label for="Date">Date</label>
+      <input type="Date" ngModel name="Date" #Date="ngModel" [(ngModel)]="model.Date" required>
+      <span class="help-block" *ngIf="Date.invalid && Date.touched" style="color:red">Please Enter Valid Date..</span>
+
+
+      <label for="CustomerName">Customer Name</label>
+      <input type="text" ngModel name="CustomerName" #CustomerName="ngModel" [(ngModel)]="model.CustomerName" required>
+     <span class="help-block" *ngIf="CustomerName.invalid && CustomerName.touched" style="color: red;">Please Enter Valid Customer Name..</span>
+
+     <label for="CustomerContact">Customer Contact</label>
+      <input type="number" ngModel name="CustomerContact" #CustomerContact="ngModel" [(ngModel)]="model.CustomerContact" required>
+     <span class="help-block" *ngIf="CustomerContact.invalid && CustomerContact.touched" style="color: red;">Please Enter Valid Customer Name..</span>
+
+
+
+       <label for="Company">Company</label>
+        <input type="text" ngModel name="Company" [(ngModel)]="product && product.Company.Name" disabled>
+
+        <label for="Category">Category</label>
+        <input type="text" ngModel name="Category" [(ngModel)]="product && product.Category.Name" disabled>
+
+        <label for="Model">Model</label>
+        <input type="text" ngModel name="Model" [(ngModel)]="product && product.ModelName" disabled>
+
+        <label for="Quantity">Quantity</label>
+        <input type="number" ngModel name="Quantity" #Quantity="ngModel" (change)="onGetQty($event)" [(ngModel)]="model.Quantity" required>
+      <span class="help-block" *ngIf="Quantity.invalid && Quantity.touched" style="color: red;">Please Enter Valid Quantity..</span>
+
+
+        <!-- hidden type for Product ID -->
+       <input type="hidden" ngModel name="ProductId" [(ngModel)]="productId">
+
+
+       <label for="Amount">Amount</label>
+       <input type="number" ngModel name="Amount" #Amount="ngModel" (change)="onGetAmount($event)" [(ngModel)]="model.Amount" required>
+      <span class="help-block" *ngIf="Amount.invalid && Amount.touched" style="color: red;">Please Enter Valid Amount..</span>
+
+      <label for="TotalAmount">Total Amount</label>
+      <input type="number" ngModel name="TotalAmount" [(ngModel)]=" amount * qty"  >
+
+
+
+<br>
+        <input type="submit" [disabled]="CreateSell.invalid" (click)="onActionButton($event)" value="Submit">
+      </form>
+    </div>
+ </div>
+</div>
+

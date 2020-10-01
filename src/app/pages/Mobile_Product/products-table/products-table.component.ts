@@ -17,7 +17,10 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   products : Product [];
   loadingSpinner = false;
   errormessage = false;
+  EmptyString= null;
   term;
+  comp;
+  cat;
   company;
   category;
   DeleteConfirmationPopup = false;
@@ -31,7 +34,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   public cancelClicked:boolean = false;
 
    //Pagination
-   config: any;
+   config: any = null;
    collection = { count: this.config, data: [] };
    //
 
@@ -77,12 +80,12 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   getProduct():void{
          this.loadingSpinner = true
         this.sub = this.productservice.getProducts().subscribe((prod)=>{
-         console.log(prod);
+        //  console.log(prod);
          this.products = prod as [];
          this.loadingSpinner = false;
   },
     err=>{
-         console.log(err);
+        //  console.log(err);
          this.loadingSpinner = false;
          this.errormessage = true;
       });
@@ -105,7 +108,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   onDelete(productId){
       this.DeleteConfirmationPopup = false;
         this.productservice.deleteProduct(productId).subscribe((data)=>{
-        console.log("Delelte Succeefully");
+        // console.log("Delelte Succeefully");
         this.ngOnInit();
       });
 
@@ -131,4 +134,13 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
      this.router.navigate(['purchase/create',ProductId]);
     }
 
+    onCreateSell(id){
+      this.router.navigate(['sell/create',id]);
+    }
+
+    onClearFilter(){
+      this.term = null;
+      this.cat = null;
+      this.comp = null;
+    }
 }

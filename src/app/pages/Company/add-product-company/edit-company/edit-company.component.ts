@@ -11,22 +11,23 @@ import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 export class EditCompanyComponent implements OnInit {
   companyId;
   companyData;
-  CompanyEditForm:FormGroup;
+  companyEditForm:FormGroup;
   updateCompanyMessage = null;
+  submitSpinner = false;
 
   constructor(private companyservice:ComapnyService, private route:ActivatedRoute, private router:Router) { }
 
   getCompany(id){
     this.companyservice.getCompany(id).subscribe((data)=>{
       this.companyData = data;
-      console.log(data);
+      // console.log(data);
     });
   }
 
 
   ngOnInit(): void {
        //Reactive Form
-       this.CompanyEditForm=new FormGroup({
+       this.companyEditForm=new FormGroup({
          'Id'   : new FormControl(),
          'Name' : new FormControl(null, Validators.required),
          'Country'     : new FormControl(null)
@@ -43,10 +44,13 @@ export class EditCompanyComponent implements OnInit {
   }
 
   onUpdate(){
-    this.companyservice.updateCompany(this.companyId,this.CompanyEditForm.value).subscribe((data)=>{
+    this.submitSpinner = true;
+    this.companyservice.updateCompany(this.companyId,this.companyEditForm.value).subscribe((data)=>{
      this.updateCompanyMessage = "Record Update Successfully";
+     this.submitSpinner = false;
    },err=>{
      this.updateCompanyMessage = "An error Occured";
+     this.submitSpinner = false;
    });
 
   }

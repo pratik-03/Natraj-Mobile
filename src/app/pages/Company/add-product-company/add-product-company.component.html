@@ -4,7 +4,9 @@
 (close)="onHandlePopupMessage()"
 ></app-popup>
 
-<div class="card">
+<app-submit-spinner *ngIf="submitSpinner"></app-submit-spinner>
+
+<div class="card" *ngIf="!submitSpinner">
   <div class="container">
     <h2 class="text-center text-divider">Add Company</h2>
     <hr style="color: grey;">

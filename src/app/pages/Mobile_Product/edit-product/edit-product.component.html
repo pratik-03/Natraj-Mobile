@@ -4,8 +4,10 @@
 (close)="OnHandlePopup()"
 ></app-popup>
 
+<app-submit-spinner *ngIf="SubmitSpinner"></app-submit-spinner>
 
-<div class="card">
+
+<div class="card" *ngIf="!SubmitSpinner">
   <div class="container">
     <h2 class="text-center text-divider">Edit Category</h2>
     <hr style="color: grey;">

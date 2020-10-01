@@ -12,6 +12,7 @@ export class VendorComponent implements OnInit {
   errorMessage;
   clearInterval;
   SubmittedMessage = null;
+  SubmitSpinner = false;
 
   constructor(private VendorService:VendorService) { }
 
@@ -19,6 +20,9 @@ export class VendorComponent implements OnInit {
   }
 
   onSubmit(vendor:NgForm){
+
+    this.SubmitSpinner = true;
+
   const Vendor = {
     Name    : vendor.value.Name,
     Contact : vendor.value.Contact,
@@ -28,6 +32,7 @@ export class VendorComponent implements OnInit {
   this.VendorService.AddVendors(Vendor).subscribe((data)=>{
     console.log(data);
     this.SubmittedMessage = "Vendor Added Successfully";
+    this.SubmitSpinner = false;
   },
   err=>{
     this.errorMessage = err.error.Message;
@@ -35,6 +40,7 @@ export class VendorComponent implements OnInit {
    console.log(err);
    vendor.reset();
    this.clearInterval = clearInterval();
+   this.SubmitSpinner = false;
   }
   );
   vendor.reset();

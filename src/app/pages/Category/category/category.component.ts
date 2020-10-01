@@ -11,13 +11,13 @@ import { Category } from '../category.model';
 export class CategoryComponent implements OnInit {
    category:Category;
    message = null;
-   DeleteMessage = null;
+   deleteMessage = null;
    loadingSpinner = false;
-   DeleteConfirm = false;
-  
+   deleteConfirm = false;
+   term;
 
    //Pagination
- config: any;
+ config: any = null;
  collection = { count: this.config, data: [] };
  //
 
@@ -44,26 +44,27 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
     this.loadingSpinner = true
     this.categoryservice.getCategories().subscribe((cat)=>{
-      console.log(cat);
+      // console.log(cat);
      this.category = cat as any;
      this.loadingSpinner = false;
     },
     err=>{
       this.message = "An Error Occured."
+      this.loadingSpinner = false;
     }
     );
   }
 
   onEditCategory(categoryId){
     this.router.navigate(['category/edit',categoryId]);
-    console.log(categoryId);
+    // console.log(categoryId);
   }
 
   onDeleteCategory(categoryId){
-   this.DeleteConfirm = false;
-  
+   this.deleteConfirm = false;
+
    this.categoryservice.delelteCategory(categoryId).subscribe((data)=>{
-     console.log(data);
+    //  console.log(data);
     this.message = "Category Deleted Successfully";
      this.ngOnInit();
    },
@@ -78,12 +79,12 @@ export class CategoryComponent implements OnInit {
   }
 
 
-  DeleteConfirmation(){
-   this.DeleteConfirm = true;
+  deleteConfirmation(){
+   this.deleteConfirm = true;
   }
 
-  CancelDelete(){
-    this.DeleteConfirm = false;
+  cancelDelete(){
+    this.deleteConfirm = false;
 
   }
 
